@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_authentication/view/pages/auth/login_page.dart';
+import 'package:firebase_authentication/view/utils/utils.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 import '../../../helper/constants/app_dimentions.dart';
 import '../../../helper/constants/app_strings.dart';
@@ -17,6 +19,7 @@ class SignupPage extends StatefulWidget {
 
 class _SignupPageState extends State<SignupPage> {
   FirebaseAuth auth = FirebaseAuth.instance;
+  bool loading = false;
   final _formKey = GlobalKey<FormState>();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
@@ -26,11 +29,25 @@ class _SignupPageState extends State<SignupPage> {
     auth.createUserWithEmailAndPassword(
         email: emailController.text.toString(),
         password: passwordController.text.toString()).then((value){
-
+setState(() {
+  loading = false;
+});
     }).onError((error,stackTrace){
-      print("error!");
+      Utils().toastMessage(error.toString());
+      setState(() {
+        loading = false;
+      });
     });
   }
+
+  @override
+  void dispose(){
+    super.dispose();
+    emailController.dispose();
+    passwordController.dispose();
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -76,8 +93,11 @@ class _SignupPageState extends State<SignupPage> {
                     },
                   ),
                   AppDims.space2,
-                  PrimaryButton(text: AppStrings.login,height: 50,onTap: (){
+                  PrimaryButton(text: AppStrings.signup,loading:loading,height: 50,onTap: (){
                     if (_formKey.currentState!.validate()) {
+                      setState(() {
+                        loading = true;
+                      });
                       signup();
                     } else {
                       print("signup error");
@@ -86,7 +106,7 @@ class _SignupPageState extends State<SignupPage> {
                   ),
                   AppDims.space2,
                   ChoiceButton(desc: "Already have account", btnName: "Sign in",onTap: (){
-                    Navigator.pushReplacement(context, MaterialPageRoute(builder:(BuildContext context) => const LoginPage(), ));
+                    Navigator.push(context, MaterialPageRoute(builder:(BuildContext context) => const LoginPage(), ));
                   },)
                 ],
               )),

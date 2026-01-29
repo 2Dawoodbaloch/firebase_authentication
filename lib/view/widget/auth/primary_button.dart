@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 class PrimaryButton extends StatelessWidget {
-  final String? text;
+  final bool loading;
+  final String text;
   final double? width;
   final double height;
   final Color bgColor;
@@ -11,11 +12,12 @@ class PrimaryButton extends StatelessWidget {
   final double radius;
   final Function()? onTap;
 
-  const PrimaryButton({
+   const PrimaryButton({
     super.key,
     this.width,
+    this.loading = false,
     this.height = 40,
-    this.text,
+    required this.text,
     this.radius = 5.0,
     this.fontSize = 18.0,
     this.fgColor = Colors.white,
@@ -38,7 +40,7 @@ class PrimaryButton extends StatelessWidget {
           color: bgColor,
           borderRadius: BorderRadius.circular(radius),
         ),
-        child: child ?? Text(text ?? "",style: TextStyle(fontSize: fontSize,color: fgColor),textAlign: TextAlign.center),
+        child: loading ? CircularProgressIndicator(color: Colors.red,) : child ?? Text(text,style: TextStyle(fontSize: fontSize,color: fgColor),textAlign: TextAlign.center),
       ),
     );
   }

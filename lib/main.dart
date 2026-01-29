@@ -1,4 +1,5 @@
 import 'package:firebase_authentication/view/pages/auth/login_page.dart';
+import 'package:firebase_authentication/view/pages/splash_screen/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 
@@ -20,7 +21,7 @@ class MyApp extends StatelessWidget {
 
         colorScheme: .fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: const LoginPage(),
+      home: const SplashScreen(),
     );
   }
 }
