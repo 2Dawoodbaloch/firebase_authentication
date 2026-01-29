@@ -20,6 +20,17 @@ class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  
+  
+  void login(){
+    auth.signInWithEmailAndPassword(
+        email: emailController.text.toString(),
+        password: passwordController.text.toString()).then((value){
+
+    }).onError((error,stackTrace){
+      print("user not present!");
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -68,9 +79,7 @@ class _LoginPageState extends State<LoginPage> {
                 AppDims.space2,
                 PrimaryButton(text: AppStrings.login,height: 50,onTap: (){
                   if (_formKey.currentState!.validate()) {
-                    print("successfully login");
-                    //SnackBar(content: Text("login accepted"),backgroundColor: Colors.orange,);
-                   auth.createUserWithEmailAndPassword(email: emailController.text.toString(), password: passwordController.text.toString());
+                  login();
                   } else {
                     print("login error");
                   }

@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_authentication/view/pages/auth/login_page.dart';
 import 'package:flutter/material.dart';
 
@@ -15,9 +16,21 @@ class SignupPage extends StatefulWidget {
 }
 
 class _SignupPageState extends State<SignupPage> {
+  FirebaseAuth auth = FirebaseAuth.instance;
   final _formKey = GlobalKey<FormState>();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+
+
+  void signup(){
+    auth.createUserWithEmailAndPassword(
+        email: emailController.text.toString(),
+        password: passwordController.text.toString()).then((value){
+
+    }).onError((error,stackTrace){
+      print("error!");
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -65,15 +78,14 @@ class _SignupPageState extends State<SignupPage> {
                   AppDims.space2,
                   PrimaryButton(text: AppStrings.login,height: 50,onTap: (){
                     if (_formKey.currentState!.validate()) {
-                      print("yes");
-                      // Add your login logic here
+                      signup();
                     } else {
-                      print("fix errors");
+                      print("signup error");
                     }
                   },
                   ),
                   AppDims.space2,
-                  ChoiceButton(desc: "have you registered yet", btnName: "Sign in",onTap: (){
+                  ChoiceButton(desc: "Already have account", btnName: "Sign in",onTap: (){
                     Navigator.pushReplacement(context, MaterialPageRoute(builder:(BuildContext context) => const LoginPage(), ));
                   },)
                 ],
