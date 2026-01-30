@@ -1,3 +1,4 @@
+import 'package:firebase_authentication/helper/services/theme/light_theme.dart';
 import 'package:firebase_authentication/view/pages/auth/login_page.dart';
 import 'package:firebase_authentication/view/pages/splash_screen/splash_screen.dart';
 import 'package:flutter/material.dart';
@@ -15,12 +16,11 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
 
-        colorScheme: .fromSeed(seedColor: Colors.deepPurple),
-      ),
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Flutter Demo',
+      theme: lightTheme,
       home: const SplashScreen(),
     );
   }

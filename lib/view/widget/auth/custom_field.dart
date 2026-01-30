@@ -41,22 +41,19 @@ class CustomField extends StatelessWidget {
         hintText: hint,
         labelText: label,
         border: isCircular
-            ? OutlineInputBorder(borderRadius: BorderRadius.circular(radius))
+            ? OutlineInputBorder(borderRadius: BorderRadius.circular(radius),borderSide: BorderSide(color: Colors.black))
             : UnderlineInputBorder(),
         enabledBorder: isCircular
-            ? OutlineInputBorder(borderRadius: BorderRadius.circular(radius))
+            ? OutlineInputBorder(borderRadius: BorderRadius.circular(radius),borderSide: BorderSide(color: Colors.black))
             : UnderlineInputBorder(),
         disabledBorder: isCircular
-            ? OutlineInputBorder(borderRadius: BorderRadius.circular(radius))
+            ? OutlineInputBorder(borderRadius: BorderRadius.circular(radius),borderSide: BorderSide(color: Colors.black))
             : UnderlineInputBorder(),
         focusedBorder: isCircular
-            ? OutlineInputBorder(borderRadius: BorderRadius.circular(radius))
+            ? OutlineInputBorder(borderRadius: BorderRadius.circular(radius),borderSide: BorderSide(color: Colors.blue))
             : UnderlineInputBorder(),
         errorBorder: isCircular
-            ? OutlineInputBorder(borderRadius: BorderRadius.circular(radius))
-            : UnderlineInputBorder(),
-        focusedErrorBorder: isCircular
-            ? OutlineInputBorder(borderRadius: BorderRadius.circular(radius))
+            ? OutlineInputBorder(borderRadius: BorderRadius.circular(radius),borderSide: BorderSide(color: Colors.red))
             : UnderlineInputBorder(),
         filled: filled,
       ),
