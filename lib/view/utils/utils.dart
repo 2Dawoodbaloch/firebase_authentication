@@ -26,7 +26,7 @@ class Utils {
       fontSize: 16,
       textColor: Colors.black,
       backgroundColor: Colors.red,
-      gravity: ToastGravity.CENTER,  // Default if null
+      gravity: ToastGravity.BOTTOM,  // Default if null
       toastLength: Toast.LENGTH_SHORT,
       timeInSecForIosWeb: 1,
     );

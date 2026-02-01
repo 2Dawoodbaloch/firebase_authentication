@@ -36,6 +36,10 @@ class _SignupPageState extends State<SignupPage> {
 setState(() {
   loading = false;
 });
+
+Navigator.push(context, MaterialPageRoute(builder: (context) => LoginPage()));
+Utils().toastMessage(value.toString());
+
     }).onError((error,stackTrace){
       Utils().toastMessage(error.toString());
       setState(() {

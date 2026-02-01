@@ -10,11 +10,13 @@ class CustomField extends StatelessWidget {
   final bool filled;
   final double radius;
   final bool isPassword;
+  final int? maxLines;
   final Widget? suffix;
   final Widget? prefix;
 
   const CustomField({
     super.key,
+    this.maxLines,
     required this.controller,
     this.isCircular = false,
     this.validator,
@@ -31,6 +33,7 @@ class CustomField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      // maxLines: maxLines,
       validator: validator,
       keyboardType: keyboardType,
       controller: controller,

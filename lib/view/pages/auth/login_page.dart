@@ -3,6 +3,8 @@ import 'package:firebase_authentication/helper/constants/app_strings.dart';
 import 'package:firebase_authentication/view/pages/auth/loginwith_phone.dart';
 import 'package:firebase_authentication/view/pages/auth/signup_page.dart';
 import 'package:firebase_authentication/view/pages/home/home_page.dart';
+import 'package:firebase_authentication/view/pages/post/add_post.dart';
+import 'package:firebase_authentication/view/pages/post/post.dart';
 import 'package:firebase_authentication/view/utils/utils.dart';
 import 'package:firebase_authentication/view/widget/auth/choice_button.dart';
 import 'package:firebase_authentication/view/widget/auth/custom_field.dart';
@@ -40,7 +42,7 @@ class _LoginPageState extends State<LoginPage> {
           });
           Navigator.pushReplacement(
             context,
-            MaterialPageRoute(builder: (context) => HomePage()),
+            MaterialPageRoute(builder: (context) => AddPost()),
           );
         })
         .onError((error, stackTrace) {
@@ -82,6 +84,7 @@ class _LoginPageState extends State<LoginPage> {
                   AppDims.space2,
                   CustomField(
                     controller: emailController,
+                    maxLines: 1,
                     isCircular: true,
                     hint: AppStrings.mail,
                     label: AppStrings.mail,
@@ -98,6 +101,7 @@ class _LoginPageState extends State<LoginPage> {
                   CustomField(
                     controller: passwordController,
                     isCircular: true,
+                    maxLines: 1,
                     hint: AppStrings.password,
                     label: AppStrings.password,
                     keyboardType: TextInputType.visiblePassword,
@@ -107,8 +111,8 @@ class _LoginPageState extends State<LoginPage> {
                       if (value!.isEmpty) {
                         return "password required";
                       }
-                      if (value.length < 6){
-                      return "password length atleast greator then 6";
+                      if (value.length < 6) {
+                        return "password length atleast greator then 6";
                       }
                       return null;
                     },
@@ -152,7 +156,7 @@ class _LoginPageState extends State<LoginPage> {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => LoginwithPhone()),
+                  MaterialPageRoute(builder: (context) => PostScreen()),
                 );
               },
             ),

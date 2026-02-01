@@ -25,6 +25,9 @@ class AppStrings {
   static const hintConfirmPassword = "Re-type password";
 
 
-
+//post screen
+  static const post = "post";
+static const postDesc = "what's on your mind";
+static const add = "Add";
 
 }
