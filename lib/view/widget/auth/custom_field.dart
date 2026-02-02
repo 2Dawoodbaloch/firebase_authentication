@@ -4,6 +4,7 @@ class CustomField extends StatelessWidget {
   final TextEditingController controller;
   final TextInputType? keyboardType;
   final String? Function(String?)? validator;
+  final String? Function(String?)? onChanged;
   final bool isCircular;
   final String? hint;
   final String? label;
@@ -17,6 +18,7 @@ class CustomField extends StatelessWidget {
   const CustomField({
     super.key,
     this.maxLines,
+    this.onChanged,
     required this.controller,
     this.isCircular = false,
     this.validator,
@@ -38,6 +40,7 @@ class CustomField extends StatelessWidget {
       keyboardType: keyboardType,
       controller: controller,
       obscureText: isPassword,
+      onChanged: onChanged,
       decoration: InputDecoration(
         suffixIcon: suffix,
         prefixIcon: prefix,
