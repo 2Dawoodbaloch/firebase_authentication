@@ -65,7 +65,7 @@ class _PostScreenState extends State<PostScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: LabelText(text: AppStrings.post, fontSize: 30),
+        title: LabelText(text: "Add Post", fontSize: 30),
         centerTitle: true,
         backgroundColor: Colors.blueAccent,
       ),
