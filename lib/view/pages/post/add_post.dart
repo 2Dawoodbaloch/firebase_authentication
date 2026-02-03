@@ -18,6 +18,7 @@ class AddPost extends StatefulWidget {
 class _AddPostState extends State<AddPost> {
   final databaseRef = FirebaseDatabase.instance.ref("posts");
   TextEditingController searchFilterController = TextEditingController();
+  TextEditingController editController = TextEditingController();
   final auth = FirebaseAuth.instance;
 
   Future<void> signOut()async{
@@ -30,6 +31,44 @@ class _AddPostState extends State<AddPost> {
     }
   }
 
+  Future<void> showMyDiologue(String title,String id)async{
+    editController.text = title;
+    return showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text("Update"),
+            content: Container(
+              child: TextField(
+                controller: editController,
+                decoration: InputDecoration(
+                  hintText: "edit",
+                  border: UnderlineInputBorder()
+
+                ),
+              ),
+            ),
+            actions: [
+              TextButton(onPressed: (){
+                Navigator.pop(context);
+              }, child: Text("cancel",style: TextStyle(color: Colors.black)),),
+              TextButton(onPressed: (){
+                Navigator.pop(context);
+                databaseRef.child(id).update({
+                  "title" : editController.text.toString(),
+                  "id" : id.toString()
+                }).then((value){
+Utils().toastMessage("updated!");
+                }).onError((error, stackTrace){
+                  Utils().toastMessage(error.toString());
+                });
+              }, child: Text("update",style: TextStyle(color: Colors.black)))
+            ],
+          );
+        }
+
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -50,6 +89,7 @@ class _AddPostState extends State<AddPost> {
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
+        backgroundColor: Colors.blue,
         onPressed: () {
           Navigator.push(
             context,
@@ -106,15 +146,41 @@ class _AddPostState extends State<AddPost> {
                 query: databaseRef,
                 defaultChild: Text("loading..."),
                 itemBuilder: (context, snapshot, index, animation) {
-                  final title = Text(snapshot.child("title").value.toString());
+                  final title = snapshot.child("title").value.toString();
 
                   if(searchFilterController.text.isEmpty){
                     return ListTile(
                         subtitle: Text(snapshot.child('id').value.toString()),
-                        title: Text(snapshot.child("title").value.toString()));
+                        title: Text(snapshot.child("title").value.toString()),
+                      trailing: PopupMenuButton(
+                        icon: Icon(Icons.more_vert),
+                          itemBuilder: (context) => [
+                            PopupMenuItem(
+                              value:1,
+                                child: ListTile(
+                              leading: Icon(Icons.edit),
+                              title: Text("edit"),
+                                  onTap: (){
+                                Navigator.pop(context);
+                                showMyDiologue(title,snapshot.child('id').value.toString());
+                                  },
+                            )),
+                            PopupMenuItem(
+                              value: 2,
+                                child: ListTile(
+                              leading: Icon(Icons.delete),
+                              title: Text("delete"),
+                              onTap: (){
+                                Navigator.pop(context);
+                            databaseRef.child(snapshot.child('id').value.toString()).remove();
+                              },
+                            ))
+                          ]),
+                    );
+
                   }
 
-                  else if(title.data!.toLowerCase().contains(searchFilterController.text.toLowerCase())){
+                  else if(title.toString().toLowerCase().contains(searchFilterController.text.toLowerCase())){
                     return ListTile(
                         subtitle: Text(snapshot.child('id').value.toString()),
                         title: Text(snapshot.child("title").value.toString()));
